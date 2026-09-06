@@ -396,6 +396,7 @@ h4 {
   display: block;
   width: max-content;
   max-width: 100%;
+  margin-inline: auto;
   overflow-x: auto;
   border-collapse: collapse;
   font-size: 0.96rem;
