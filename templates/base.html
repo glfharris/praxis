@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  {% set canonical_url = current_url | default(value="") %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10233f">
+  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+  {% if canonical_url %}<link rel="canonical" href="{{ canonical_url | safe }}">{% endif %}
+  <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) | safe }}">
+</head>
+<body>
+  {% set nav_path = current_path | default(value="") %}
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="{{ get_url(path='@/_index.md') | safe }}">{{ config.title }}</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="{{ get_url(path='@/procedures/_index.md') | safe }}"{% if nav_path == '/procedures/' or nav_path is starting_with('/procedures/') %} aria-current="page"{% endif %}>Procedures</a>
+        <a href="{{ get_url(path='@/about/index.md') | safe }}"{% if nav_path == '/about/' %} aria-current="page"{% endif %}>About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    {% block content %}{% endblock content %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>{{ config.title }} — practical notes for clinical professionals.</p>
+      <p>Check local policy and use clinical judgement.</p>
+    </div>
+  </footer>
+</body>
+</html>

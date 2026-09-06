@@ -1,0 +1,12 @@
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="{{ get_url(path='@/_index.md') | safe }}">Home</a></li>
+    {% for ancestor_path in section.ancestors %}
+      {% set ancestor = get_section(path=ancestor_path) %}
+      {% if ancestor.path != '/' %}
+      <li><a href="{{ ancestor.permalink | safe }}">{{ ancestor.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+    <li aria-current="page">{{ section.title }}</li>
+  </ol>
+</nav>

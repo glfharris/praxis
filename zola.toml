@@ -1,0 +1,21 @@
+# The canonical URL the site will be built for.
+base_url = "https://praxis.glfharris.com"
+
+title = "Praxis"
+description = "Practical procedure guides and supporting explanations for UK clinicians."
+default_language = "en"
+
+compile_sass = false
+build_search_index = false
+generate_sitemap = true
+generate_robots_txt = true
+minify_html = false
+
+[markdown]
+smart_punctuation = true
+insert_anchor_links = "none"
+external_links_class = "external"
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+error_on_missing_language = true

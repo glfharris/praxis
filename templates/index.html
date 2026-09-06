@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.title }}{% endblock title %}
+{% block description %}{{ section.description }}{% endblock description %}
+
+{% block content %}
+<div class="page-width home">
+  <section class="home-intro" aria-labelledby="home-title">
+    <p class="eyebrow">For UK clinicians</p>
+    <h1 id="home-title">{{ section.title }}</h1>
+    <p class="lede">{{ section.description }}</p>
+    <aside class="editorial-note" aria-label="Editorial note">
+      <div class="prose prose--intro">{{ section.content | safe }}</div>
+    </aside>
+  </section>
+
+  {% set procedures = get_section(path="procedures/_index.md") %}
+  <section class="family-directory" aria-labelledby="families-title">
+    <div class="section-heading">
+      <h2 id="families-title">Procedures</h2>
+    </div>
+    {% if procedures.subsections %}
+    {% set home_limit = 6 %}
+    {% set visible_procedures = procedures.subsections %}
+    {% if procedures.subsections | length > home_limit %}
+      {% set visible_procedures = procedures.subsections | slice(end=home_limit) %}
+    {% endif %}
+    <ul class="listing-grid">
+      {% for subsection_path in visible_procedures %}
+        {% set family = get_section(path=subsection_path) %}
+        <li>
+          {% include "partials/procedure-card.html" %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% if procedures.subsections | length > home_limit %}
+    <p class="directory-link"><a href="{{ procedures.permalink | safe }}">Browse all procedures</a></p>
+    {% endif %}
+    {% else %}
+    <p class="empty-state">Procedures will appear here as they are added.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock content %}

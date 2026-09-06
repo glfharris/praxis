@@ -1,0 +1,24 @@
+{% set explainer_pages = family.pages | filter(attribute="extra.kind", value="explainer") %}
+{% set explainer_count = explainer_pages | length %}
+{% set article_count = family.pages | length %}
+{% set guide_count = article_count - explainer_count %}
+{% if article_count > 0 %}
+<a class="listing-card" href="{{ family.permalink | safe }}">
+{% else %}
+<div class="listing-card listing-card--pending">
+{% endif %}
+  <span class="listing-card__title">{{ family.title }}</span>
+  <span class="listing-card__meta">
+    {% if article_count == 0 %}
+      Guides in preparation
+    {% else %}
+      {% if guide_count > 0 %}{{ guide_count }} guide{% if guide_count != 1 %}s{% endif %}{% endif %}
+      {% if guide_count > 0 and explainer_count > 0 %}<span aria-hidden="true"> · </span>{% endif %}
+      {% if explainer_count > 0 %}{{ explainer_count }} explainer{% if explainer_count != 1 %}s{% endif %}{% endif %}
+    {% endif %}
+  </span>
+{% if article_count > 0 %}
+</a>
+{% else %}
+</div>
+{% endif %}

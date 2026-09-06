@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% import "macros/toc.html" as toc_macros %}
+
+{% block title %}{{ page.title }} · {{ config.title }}{% endblock title %}
+{% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
+
+{% block content %}
+{% set kind = page.extra.kind | default(value="guide") %}
+<div class="page-width article-page{% if page.toc %} article-page--with-toc{% endif %}">
+  {% include "partials/breadcrumbs.html" %}
+  <header class="article-header">
+    <p class="eyebrow">{% if kind == "explainer" %}Explainer{% else %}Guide{% endif %}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.description %}<p class="lede">{{ page.description }}</p>{% endif %}
+    {% if page.authors or page.date or page.updated or page.extra.reviewed or page.draft %}
+    <dl class="metadata" aria-label="Article information">
+      {% if page.authors %}<div><dt>Authors</dt><dd>{{ page.authors | join(sep=", ") }}</dd></div>{% endif %}
+      {% if page.date %}<div><dt>Published</dt><dd><time datetime="{{ page.date }}">{{ page.date }}</time></dd></div>{% endif %}
+      {% if page.updated %}<div><dt>Updated</dt><dd><time datetime="{{ page.updated }}">{{ page.updated }}</time></dd></div>{% endif %}
+      {% if page.extra.reviewed %}<div><dt>Reviewed</dt><dd><time datetime="{{ page.extra.reviewed }}">{{ page.extra.reviewed }}</time></dd></div>{% endif %}
+      {% if page.draft %}<div><dt>Status</dt><dd>Draft</dd></div>{% endif %}
+    </dl>
+    {% endif %}
+  </header>
+
+  {% if page.toc %}
+  <details class="mobile-toc">
+    <summary>On this page</summary>
+    <nav aria-label="On this page">{{ toc_macros::render(items=page.toc) }}</nav>
+  </details>
+  {% endif %}
+
+  <div class="article-layout{% if not page.toc %} article-layout--no-toc{% endif %}">
+    {% if page.toc %}
+    <aside class="desktop-toc">
+      <nav aria-label="On this page">
+        <h2>On this page</h2>
+        {{ toc_macros::render(items=page.toc) }}
+      </nav>
+    </aside>
+    {% endif %}
+
+    <article class="prose article-body">
+      {{ page.content | safe }}
+
+      {% if page.extra.related %}
+      <aside class="related" aria-labelledby="related-title">
+        <h2 id="related-title">Related reading</h2>
+        <ul>
+          {% for related_path in page.extra.related %}
+            {% set related_page = get_page(path=related_path) %}
+            <li><a href="{{ related_page.permalink | safe }}">{{ related_page.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </aside>
+      {% endif %}
+    </article>
+  </div>
+</div>
+{% endblock content %}

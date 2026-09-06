@@ -1,0 +1,10 @@
+{% macro render(items) %}
+<ol>
+  {% for item in items %}
+  <li>
+    <a href="{{ item.permalink | safe }}">{{ item.title }}</a>
+    {% if item.children %}{{ self::render(items=item.children) }}{% endif %}
+  </li>
+  {% endfor %}
+</ol>
+{% endmacro render %}

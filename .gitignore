@@ -1,0 +1,9 @@
+# Zola build output
+/public/
+
+# Local preview and temporary files
+.DS_Store
+*.swp
+*.swo
+*~
+/.zola-cache/

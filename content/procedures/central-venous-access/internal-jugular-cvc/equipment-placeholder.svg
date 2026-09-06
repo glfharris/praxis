@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
+  <title id="title">Abstract equipment placeholder</title>
+  <desc id="desc">A non-clinical arrangement of simple labelled shapes.</desc>
+  <rect width="960" height="480" fill="#f4f6f8"/>
+  <rect x="90" y="105" width="250" height="220" rx="8" fill="#ffffff" stroke="#526174" stroke-width="4"/>
+  <rect x="390" y="145" width="190" height="140" rx="8" fill="#eaf7f5" stroke="#007a7a" stroke-width="4"/>
+  <circle cx="720" cy="215" r="105" fill="#edf5ff" stroke="#155bb5" stroke-width="4"/>
+  <path d="M340 215h50M580 215h35" stroke="#526174" stroke-width="4" stroke-dasharray="10 10"/>
+  <g fill="#10233f" font-family="system-ui, sans-serif" font-size="24" text-anchor="middle">
+    <text x="215" y="220">Placeholder A</text>
+    <text x="485" y="220">Placeholder B</text>
+    <text x="720" y="220">Placeholder C</text>
+  </g>
+</svg>

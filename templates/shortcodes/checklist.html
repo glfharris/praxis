@@ -1,0 +1,4 @@
+<aside class="checklist"{% if title %} aria-labelledby="checklist-{{ nth }}-title"{% else %} aria-label="Checklist"{% endif %}>
+  {% if title %}<p class="checklist__title" id="checklist-{{ nth }}-title">{{ title }}</p>{% endif %}
+  <div class="checklist__body">{{ body | markdown | safe }}</div>
+</aside>

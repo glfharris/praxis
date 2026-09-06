@@ -1,0 +1,30 @@
+{% set requested_kind = kind | default(value="note") %}
+{% if requested_kind == "tip" or requested_kind == "warning" or requested_kind == "danger" or requested_kind == "local" %}
+  {% set callout_kind = requested_kind %}
+{% else %}
+  {% set callout_kind = "note" %}
+{% endif %}
+{% if callout_kind == "tip" %}
+  {% set default_title = "Practical tip" %}
+  {% set icon = "✓" %}
+{% elif callout_kind == "warning" %}
+  {% set default_title = "Warning" %}
+  {% set icon = "!" %}
+{% elif callout_kind == "danger" %}
+  {% set default_title = "Danger" %}
+  {% set icon = "!" %}
+{% elif callout_kind == "local" %}
+  {% set default_title = "Local practice" %}
+  {% set icon = "⌂" %}
+{% else %}
+  {% set default_title = "Note" %}
+  {% set icon = "i" %}
+{% endif %}
+{% set callout_title = title | default(value=default_title) %}
+<aside class="callout callout--{{ callout_kind }}" aria-labelledby="callout-{{ callout_kind }}-{{ nth }}-title">
+  <p class="callout__title" id="callout-{{ callout_kind }}-{{ nth }}-title">
+    <span class="callout__icon" aria-hidden="true">{{ icon }}</span>
+    {{ callout_title }}
+  </p>
+  <div class="callout__body">{{ body | markdown | safe }}</div>
+</aside>

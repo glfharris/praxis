@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} · {{ config.title }}{% endblock title %}
+{% block description %}{{ section.description | default(value=config.description) }}{% endblock description %}
+
+{% block content %}
+<div class="page-width section-page family-page">
+  {% include "partials/section-breadcrumbs.html" %}
+  <header class="page-header">
+    <h1>{{ section.title }}</h1>
+    {% if section.description %}<p class="lede">{{ section.description }}</p>{% endif %}
+  </header>
+  {% if section.content %}<div class="prose prose--intro">{{ section.content | safe }}</div>{% endif %}
+
+  {% set explainer_pages = section.pages | filter(attribute="extra.kind", value="explainer") %}
+  {% set explainer_count = explainer_pages | length %}
+  {% set guide_count = section.pages | length - explainer_count %}
+
+  {% if guide_count > 0 %}
+  <section class="article-group" aria-labelledby="guides-title">
+    <h2 id="guides-title">Practical guides <span class="article-group__count">· {{ guide_count }}</span></h2>
+    <ul class="article-list">
+      {% for item in section.pages %}
+        {% set item_kind = item.extra.kind | default(value="guide") %}
+        {% if item_kind != "explainer" %}
+        <li>
+          <a href="{{ item.permalink | safe }}">
+            <span>{{ item.title }}</span>
+            {% if item.description %}<small>{{ item.description }}</small>{% endif %}
+          </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if explainer_count > 0 %}
+  <section class="article-group" aria-labelledby="explainers-title">
+    <h2 id="explainers-title">Supporting explanations <span class="article-group__count">· {{ explainer_count }}</span></h2>
+    <ul class="article-list">
+      {% for item in section.pages %}
+        {% set item_kind = item.extra.kind | default(value="guide") %}
+        {% if item_kind == "explainer" %}
+        <li>
+          <a href="{{ item.permalink | safe }}">
+            <span>{{ item.title }}</span>
+            {% if item.description %}<small>{{ item.description }}</small>{% endif %}
+          </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if section.pages | length == 0 %}
+  <div class="procedure-status">
+    <p><strong>In preparation</strong><span aria-hidden="true">—</span> No guides have been published yet.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
