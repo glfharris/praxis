@@ -50,11 +50,14 @@ draft = true
 [extra]
 kind = "guide"
 # reviewed = "YYYY-MM-DD"
+# reviewers = ["Named clinical reviewer"]
 # related = ["procedures/family-slug/another-page/index.md"]
 +++
 ```
 
 `extra.kind` supports `guide` and `explainer`. If omitted, templates treat the page as a guide.
+
+Use `extra.reviewers` for the names of people who have reviewed the article. It is a list of strings, displayed alongside authors and dates. Add names only after the review has happened.
 
 The optional dates have distinct meanings:
 

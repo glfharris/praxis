@@ -9,6 +9,7 @@ draft = true
 [extra]
 kind = "guide"
 # reviewed = "YYYY-MM-DD"
+# reviewers = ["Named clinical reviewer"]
 # related = ["procedures/family-slug/explainer-slug/index.md"]
 +++
 

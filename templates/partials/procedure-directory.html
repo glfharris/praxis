@@ -1,0 +1,51 @@
+{% set_global available_count = 0 %}
+{% set_global pending_count = 0 %}
+{% for subsection_path in directory.subsections %}
+  {% set family = get_section(path=subsection_path) %}
+  {% if family.pages | length > 0 %}
+    {% set_global available_count = available_count + 1 %}
+  {% else %}
+    {% set_global pending_count = pending_count + 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if available_count > 0 %}
+<ul class="listing-grid">
+  {% set_global displayed_count = 0 %}
+  {% for subsection_path in directory.subsections %}
+    {% set family = get_section(path=subsection_path) %}
+    {% if family.pages | length > 0 and displayed_count < directory_limit %}
+      {% set_global displayed_count = displayed_count + 1 %}
+      <li class="procedure-entry">
+        {% include "partials/procedure-card.html" %}
+        {% if direct_guides %}
+          {% set_global linked_guide_count = 0 %}
+          {% for item in family.pages %}
+            {% set item_kind = item.extra.kind | default(value="guide") %}
+            {% if item_kind != "explainer" and linked_guide_count < 3 %}
+              {% if linked_guide_count == 0 %}<ul class="quick-guides" aria-label="Guides in {{ family.title }}">{% endif %}
+              <li><a href="{{ item.permalink | safe }}">{{ item.title }}</a>{% if item.draft %} <span class="draft-label">Draft</span>{% endif %}</li>
+              {% set_global linked_guide_count = linked_guide_count + 1 %}
+            {% endif %}
+          {% endfor %}
+          {% if linked_guide_count > 0 %}</ul>{% endif %}
+        {% endif %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{% else %}
+<p class="directory-status">The first guides are in preparation. They will appear here after editorial review.</p>
+{% endif %}
+
+{% if pending_count > 0 %}
+<section class="upcoming" aria-labelledby="upcoming-title">
+  <h2 id="upcoming-title">In preparation</h2>
+  <ul>
+    {% for subsection_path in directory.subsections %}
+      {% set family = get_section(path=subsection_path) %}
+      {% if family.pages | length == 0 %}<li>{{ family.title }}</li>{% endif %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

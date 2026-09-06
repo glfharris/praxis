@@ -18,27 +18,12 @@
   <section class="family-directory" aria-labelledby="families-title">
     <div class="section-heading">
       <h2 id="families-title">Procedures</h2>
+      <a href="{{ procedures.permalink | safe }}">Browse all procedures <span aria-hidden="true">→</span></a>
     </div>
-    {% if procedures.subsections %}
-    {% set home_limit = 6 %}
-    {% set visible_procedures = procedures.subsections %}
-    {% if procedures.subsections | length > home_limit %}
-      {% set visible_procedures = procedures.subsections | slice(end=home_limit) %}
-    {% endif %}
-    <ul class="listing-grid">
-      {% for subsection_path in visible_procedures %}
-        {% set family = get_section(path=subsection_path) %}
-        <li>
-          {% include "partials/procedure-card.html" %}
-        </li>
-      {% endfor %}
-    </ul>
-    {% if procedures.subsections | length > home_limit %}
-    <p class="directory-link"><a href="{{ procedures.permalink | safe }}">Browse all procedures</a></p>
-    {% endif %}
-    {% else %}
-    <p class="empty-state">Procedures will appear here as they are added.</p>
-    {% endif %}
+    {% set directory = procedures %}
+    {% set directory_limit = 6 %}
+    {% set direct_guides = true %}
+    {% include "partials/procedure-directory.html" %}
   </section>
 </div>
 {% endblock content %}

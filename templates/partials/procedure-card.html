@@ -8,6 +8,8 @@
 <div class="listing-card listing-card--pending">
 {% endif %}
   <span class="listing-card__title">{{ family.title }}</span>
+  {% if article_count > 0 %}<span class="listing-card__arrow" aria-hidden="true">→</span>{% endif %}
+  {% if family.description %}<span class="listing-card__description">{{ family.description }}</span>{% endif %}
   <span class="listing-card__meta">
     {% if article_count == 0 %}
       Guides in preparation

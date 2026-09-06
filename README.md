@@ -12,6 +12,8 @@ Install Zola using the [official installation instructions](https://www.getzola.
 zola --version
 ```
 
+For Cloudflare Pages, set `ZOLA_VERSION` to `0.22.1` in both production and preview build environment variables, with build command `zola build` and output directory `public`. This keeps builds on the supported version when Cloudflare changes its default. Use the same Zola version for local checks.
+
 ## Preview, build and check
 
 Preview published content:
