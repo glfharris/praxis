@@ -4,6 +4,7 @@
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
 {% block content %}
+{% if page.toc %}<script src="{{ get_url(path='article.js', cachebust=true) | safe }}" defer></script>{% endif %}
 {% set kind = page.extra.kind | default(value="guide") %}
 <div class="page-width article-page{% if page.toc %} article-page--with-toc{% endif %}">
   {% include "partials/breadcrumbs.html" %}

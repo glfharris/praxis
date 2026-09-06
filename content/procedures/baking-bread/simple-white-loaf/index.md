@@ -29,7 +29,9 @@ This published, non-clinical demonstration makes one loaf in a roughly 900 g loa
 - Have a clean cover, oven gloves and a cooling rack ready.
 {% </checklist> %}
 
-## Mix and knead
+## Method
+
+{% <step number={1} title="Mix and knead"> %}
 
 1. Stir together the flour, yeast and salt in the bowl.
 2. Add the water and oil. Mix until no dry flour remains.
@@ -39,13 +41,17 @@ This published, non-clinical demonstration makes one loaf in a roughly 900 g loa
 If the dough is difficult to handle, cover it and rest it for 10 minutes before kneading again. Avoid adding large handfuls of flour: this can make the finished loaf heavy.
 {% </callout> %}
 
-## First rise
+{% </step> %}
+
+{% <step number={2} title="First rise"> %}
 
 Return the dough to the bowl and cover it. Leave until noticeably expanded and approximately doubled in size, often 60–90 minutes in a moderately warm kitchen.
 
 For help judging the dough, see [understanding proving](@/procedures/baking-bread/understanding-proofing/index.md).
 
-## Shape and prove
+{% </step> %}
+
+{% <step number={3} title="Shape and prove"> %}
 
 {{ <figure page={page} src="shaping-a-loaf.svg" alt="Three shaping stages: flatten the dough into a rectangle, roll it into a log and pinch the seam, then place it seam-side down in an oiled tin." caption="Figure 1. Shaping a tin loaf after the first rise. Cover the shaped dough and allow it to prove before baking." credit="Praxis demonstration illustration" /> }}
 
@@ -54,7 +60,9 @@ For help judging the dough, see [understanding proving](@/procedures/baking-brea
 3. Roll it into a firm log, pinch the seam closed and place it seam-side down in the tin.
 4. Cover and leave until puffy, usually another 30–60 minutes. Begin preheating the oven to 220°C conventional / 200°C fan during this rise.
 
-## Bake
+{% </step> %}
+
+{% <step number={4} title="Bake"> %}
 
 Bake for 30–35 minutes, until the crust is a deep golden brown. Turn the loaf out carefully; if the sides are pale, return it to the oven without the tin for a few more minutes.
 
@@ -62,9 +70,13 @@ Bake for 30–35 minutes, until the crust is a deep golden brown. Turn the loaf 
 Use dry oven gloves when handling the tin. Place it on a heat-resistant surface after turning out the loaf.
 {% </callout> %}
 
-## Cool and serve
+{% </step> %}
+
+{% <step number={5} title="Cool and serve"> %}
 
 Cool on a rack for at least an hour before slicing. Cutting while very hot can compress the soft crumb and make it seem gummy.
+
+{% </step> %}
 
 ## Troubleshooting
 

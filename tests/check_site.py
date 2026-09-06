@@ -121,6 +121,15 @@ Optional **detail**.
         self.assertEqual(len([a for a in page.attrs("aside") if "callout" in a.get("class", "")]), 6)
         self.assertEqual(page.attrs("pre"), [], "Component HTML must not become indented code blocks")
 
+    def test_steps_are_headings_with_contents_links(self):
+        page = Markup(self.site / "public/procedures/baking-bread/simple-white-loaf/index.html")
+        self.assertEqual([a["id"] for a in page.attrs("h3")], [f"step-{n}" for n in range(1, 6)])
+        for n in range(1, 6):
+            self.assertEqual(len([a for a in page.attrs("a") if a.get("href", "").endswith(f"#step-{n}")]), 2)
+        self.assertEqual(page.attrs("pre"), [], "Step bodies must render as Markdown, not code")
+        self.assertTrue(any(a.get("src", "").endswith("shaping-a-loaf.svg") for a in page.attrs("img")))
+        self.assertTrue(any("article.js" in a.get("src", "") and "defer" in a for a in page.attrs("script")))
+
     def test_missing_image_fails_build(self):
         original = self.fixture.read_text()
         try:

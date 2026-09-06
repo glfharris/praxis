@@ -1,0 +1,10 @@
+{% component step(number: integer, title: string) %}
+<div class="procedure-step">
+<span class="procedure-step__number" aria-label="Step {{ number }}">{{ number }}</span>
+
+### {{ title | escape_html | safe }} {{ '{#' }}step-{{ number }}}
+
+{{ body | safe }}
+
+</div>
+{% endcomponent step %}

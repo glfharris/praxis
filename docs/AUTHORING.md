@@ -118,6 +118,26 @@ Use `figure_pair` for exactly two related figures. Each image has required `src`
 
 Keep both images in the article’s page bundle. Use two ordinary figure components instead when the images are not meaningfully related.
 
+## Numbered steps
+
+Use step blocks for substantial stages with their own paragraphs, figures or callouts. Place them beneath a level-two heading such as `## Method`; each step produces a level-three heading and appears automatically in the contents list.
+
+```markdown
+## Method
+
+{% <step number={1} title="Mix the dough"> %}
+Combine the ingredients until no dry flour remains.
+
+{% <callout kind="tip"> %}
+Rest sticky dough briefly before kneading again.
+{% </callout> %}
+{% </step> %}
+```
+
+Both `number` (an integer) and `title` are required. Use positive, sequential numbers that are unique within the page: the heading anchors are `#step-1`, `#step-2`, and so on. Keep short sequences as ordinary numbered lists. Step bodies support ordinary Markdown and nested components; figures still need `page={page}`.
+
+The contents list highlights the current heading when JavaScript is available. Its links and the step headings remain usable without JavaScript.
+
 ## Callout
 
 Parameters: optional `kind` (default `note`) and optional `title`. Supported kinds are `note`, `tip`, `warning`, `danger` and `local`. Unknown values fall back safely to `note`.

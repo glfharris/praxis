@@ -55,13 +55,15 @@ python3 tests/check_site.py
 
 These build temporary copies of the site and check draft exclusion, component escaping and Markdown, nested contents links, default guide classification, and missing-image validation.
 
+To check the optional contents-highlighting script, run `node --test tests/article-navigation.test.mjs` with Node.js. Node is only needed for this development check, not for building or serving the site.
+
 Zola writes generated files to `public/`. Do not edit that directory.
 
 ## Configuration
 
 Site-wide settings live in `zola.toml`. Change `title` to update the header wordmark, browser titles and footer in one place. Set `base_url` to the canonical deployment URL; templates use Zola URL helpers so they also work below a URL prefix.
 
-No Node tooling, CSS framework, JavaScript application, CMS or external font service is required. The site uses Tera templates, one plain CSS file and system fonts.
+No Node tooling, CSS framework, JavaScript application, CMS or external font service is required to build the site. It uses Tera templates, one plain CSS file and system fonts. A small optional script highlights the current article section in the contents list; navigation and content remain usable without JavaScript.
 
 The header mark and SVG favicon share `static/favicon.svg`. PNG and ICO fallbacks are committed, so normal site builds need no image tooling. After editing the SVG, regenerate them with librsvg and ImageMagick:
 

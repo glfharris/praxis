@@ -759,6 +759,61 @@ h4 {
   text-decoration: underline;
 }
 
+.desktop-toc a,
+.mobile-toc a {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  border-left: 3px solid transparent;
+}
+
+.desktop-toc a[aria-current="location"],
+.mobile-toc a[aria-current="location"] {
+  border-left-color: var(--teal);
+  background: var(--tip-surface);
+  color: var(--teal-dark);
+  font-weight: 700;
+}
+
+.procedure-step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.75rem;
+  margin-block: var(--space-6);
+}
+
+.procedure-step > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.procedure-step__number {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  display: grid;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding-inline: 0.3rem;
+  margin-bottom: var(--space-3);
+  place-items: center;
+  border: 1px solid var(--teal);
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  font-weight: 750;
+}
+
+.procedure-step > h3 {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  margin: 0 0 var(--space-3);
+}
+
+.procedure-step > :last-child {
+  margin-bottom: 0;
+}
+
 .mobile-toc {
   display: none;
 }
