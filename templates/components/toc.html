@@ -1,10 +1,10 @@
-{% macro render(items) %}
+{% component toc(items) %}
 <ol>
   {% for item in items %}
   <li>
     <a href="{{ item.permalink | safe }}">{{ item.title }}</a>
-    {% if item.children %}{{ self::render(items=item.children) }}{% endif %}
+    {% if item.children %}{{ <toc items={item.children} /> }}{% endif %}
   </li>
   {% endfor %}
 </ol>
-{% endmacro render %}
+{% endcomponent toc %}

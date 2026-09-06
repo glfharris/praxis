@@ -8,6 +8,10 @@
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
   <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
   {% if canonical_url %}<link rel="canonical" href="{{ canonical_url | safe }}">{% endif %}
+  <link rel="icon" href="{{ get_url(path='favicon.ico', cachebust=true) | safe }}" sizes="16x16 32x32">
+  <link rel="icon" href="{{ get_url(path='favicon-32.png', cachebust=true) | safe }}" type="image/png" sizes="32x32">
+  <link rel="icon" href="{{ get_url(path='favicon.svg', cachebust=true) | safe }}" type="image/svg+xml" sizes="any">
+  <link rel="apple-touch-icon" href="{{ get_url(path='apple-touch-icon.png', cachebust=true) | safe }}" sizes="180x180">
   <link rel="stylesheet" href="{{ get_url(path='site.css', cachebust=true) | safe }}">
 </head>
 <body>
@@ -15,9 +19,12 @@
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="wordmark" href="{{ get_url(path='@/_index.md') | safe }}">{{ config.title }}</a>
+      <a class="wordmark" href="{{ get_url(path='@/_index.md') | safe }}">
+        <img class="wordmark__icon" src="{{ get_url(path='favicon.svg', cachebust=true) | safe }}" alt="" width="32" height="32">
+        <span>{{ config.title }}</span>
+      </a>
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a href="{{ get_url(path='@/procedures/_index.md') | safe }}"{% if nav_path == '/procedures/' or nav_path is starting_with('/procedures/') %} aria-current="page"{% endif %}>Procedures</a>
+        <a href="{{ get_url(path='@/procedures/_index.md') | safe }}"{% if nav_path is starting_with(pat='/procedures/') %} aria-current="page"{% endif %}>Procedures</a>
         <a href="{{ get_url(path='@/about/index.md') | safe }}"{% if nav_path == '/about/' %} aria-current="page"{% endif %}>About</a>
       </nav>
     </div>
@@ -29,7 +36,7 @@
 
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <p>{{ config.title }} — practical notes for clinical professionals.</p>
+      <p>{{ config.title }} — practical notes for clinicians.</p>
       <p>Check local policy and use clinical judgement.</p>
     </div>
   </footer>

@@ -12,7 +12,7 @@
   </header>
   {% if section.content %}<div class="prose prose--intro">{{ section.content | safe }}</div>{% endif %}
 
-  {% set explainer_pages = section.pages | filter(attribute="extra.kind", value="explainer") %}
+  {% set explainer_pages = [item for item in section.pages if item.extra.kind == "explainer"] %}
   {% set explainer_count = explainer_pages | length %}
   {% set guide_count = section.pages | length - explainer_count %}
 

@@ -1,0 +1,13 @@
+{% component figure(page, src: string, alt: string, caption: string = "", credit: string = "") %}
+{% set asset_path = page.colocated_path ~ src %}
+{% set asset_meta = get_image_metadata(path=asset_path) %}
+<figure class="article-figure">
+<img src="{{ src | escape_html | safe }}" alt="{{ alt | escape_html | safe }}" width="{{ asset_meta.width }}" height="{{ asset_meta.height }}" loading="lazy">
+{% if caption or credit %}
+<figcaption>
+{% if caption %}<span>{{ caption | escape_html | safe }}</span>{% endif %}
+{% if credit %}<small>Credit: {{ credit | escape_html | safe }}</small>{% endif %}
+</figcaption>
+{% endif %}
+</figure>
+{% endcomponent figure %}

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "macros/toc.html" as toc_macros %}
 
 {% block title %}{{ page.title }} · {{ config.title }}{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
@@ -19,7 +18,7 @@
       {% if page.date %}<div><dt>Published</dt><dd><time datetime="{{ page.date }}">{{ page.date }}</time></dd></div>{% endif %}
       {% if page.updated %}<div><dt>Updated</dt><dd><time datetime="{{ page.updated }}">{{ page.updated }}</time></dd></div>{% endif %}
       {% if page.extra.reviewed %}<div><dt>Reviewed</dt><dd><time datetime="{{ page.extra.reviewed }}">{{ page.extra.reviewed }}</time></dd></div>{% endif %}
-      {% if page.draft %}<div><dt>Status</dt><dd>Draft</dd></div>{% endif %}
+      {% if page.draft %}<div><dt>Status</dt><dd><span class="draft-label">Draft</span></dd></div>{% endif %}
     </dl>
     {% endif %}
   </header>
@@ -27,7 +26,7 @@
   {% if page.toc %}
   <details class="mobile-toc">
     <summary>On this page</summary>
-    <nav aria-label="On this page">{{ toc_macros::render(items=page.toc) }}</nav>
+    <nav aria-label="On this page">{{ <toc items={page.toc} /> }}</nav>
   </details>
   {% endif %}
 
@@ -36,7 +35,7 @@
     <aside class="desktop-toc">
       <nav aria-label="On this page">
         <h2>On this page</h2>
-        {{ toc_macros::render(items=page.toc) }}
+        {{ <toc items={page.toc} /> }}
       </nav>
     </aside>
     {% endif %}

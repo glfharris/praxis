@@ -1,6 +1,10 @@
 # Authoring Praxis
 
-The site is tested with Zola 0.22.1. Its reusable authoring elements are Zola **shortcodes**, using `{% name(...) %}…{% end %}` for elements with a body and `{{ name(...) }}` for elements without one. Do not mix in the Tera component syntax introduced in Zola 0.23.
+The site uses Zola 0.23.4 and Tera 2 **components**, defined in `templates/components/`. Components are available by name without imports. Use `{% <name> %}…{% </name> %}` for elements with a body and `{{ <name /> }}` for elements without one. The old shortcode syntax is not supported.
+
+Component arguments are separated by spaces, not commas. Strings use quotes (`title="Equipment"`); expressions use braces (`page={page}`). Components receive only their explicit arguments and their body, so figures must receive `page={page}` to resolve colocated assets.
+
+Zola templates Markdown before rendering it. To show literal Tera syntax in an article, wrap the example (including its code fence) in `{% raw %}` and `{% endraw %}`. The recipes below are intended to execute when copied into content; this authoring document lives outside `content/` and is not rendered by Zola.
 
 ## Add a procedure family
 
@@ -87,31 +91,32 @@ Put article images beside `index.md` in the page bundle. Normal Markdown images 
 ![Useful alternative text](image-name.svg)
 ```
 
-Use the figure shortcode when a caption or credit is needed. `src` and `alt` are required; `caption` and `credit` are optional:
+Use the figure component when a caption or credit is needed. `page`, `src` and `alt` are required; `caption` and `credit` are optional:
 
 ```markdown
-{{ figure(src="image-name.svg", alt="Describe the information in the image", caption="Optional caption.", credit="Optional source") }}
+{{ <figure page={page} src="image-name.svg" alt="Describe the information in the image" caption="Optional caption." credit="Optional source" /> }}
 ```
 
-The figure shortcode validates the page-relative asset through Zola and emits its intrinsic dimensions. Its relative URL remains correct on nested routes and when the site is hosted below a URL prefix. Captions and credits are plain text and are escaped automatically. Do not put Markdown in those parameters.
+The figure component validates the page-relative asset through Zola and emits its intrinsic dimensions. Its relative URL remains correct on nested routes and when the site is hosted below a URL prefix. Captions and credits are plain text and are escaped automatically. Do not put Markdown in those parameters.
 
 ### Figure pair
 
 Use `figure_pair` for exactly two related figures. Each image has required `src` and `alt` parameters and optional `caption` and `credit` parameters, prefixed with `left_` or `right_`. The two semantic figures share one visual container, appearing side by side when space permits and stacking within the same card on narrow screens.
 
 ```markdown
-{{ figure_pair(
-  left_src="first-image.svg",
-  left_alt="Describe the first image",
-  left_caption="Optional first caption.",
-  right_src="second-image.svg",
-  right_alt="Describe the second image",
-  right_caption="Optional second caption.",
+{{ <figure_pair
+  page={page}
+  left_src="first-image.svg"
+  left_alt="Describe the first image"
+  left_caption="Optional first caption."
+  right_src="second-image.svg"
+  right_alt="Describe the second image"
+  right_caption="Optional second caption."
   right_credit="Optional source"
-) }}
+/> }}
 ```
 
-Keep both images in the article’s page bundle. Use two ordinary figure shortcodes instead when the images are not meaningfully related.
+Keep both images in the article’s page bundle. Use two ordinary figure components instead when the images are not meaningfully related.
 
 ## Callout
 
@@ -120,30 +125,30 @@ Parameters: optional `kind` (default `note`) and optional `title`. Supported kin
 Default titles are Note, Practical tip, Warning, Danger and Local practice respectively. Reserve `danger` for the most serious hazards; use `warning` for ordinary cautions.
 
 ```markdown
-{% callout(kind="warning", title="Before proceeding") %}
+{% <callout kind="warning" title="Before proceeding"> %}
 Important reviewed text goes here. Links and **emphasis** work normally.
-{% end %}
+{% </callout> %}
 ```
 
 ```markdown
-{% callout(kind="danger") %}
+{% <callout kind="danger"> %}
 State the serious hazard and the action needed to avoid it.
-{% end %}
+{% </callout> %}
 ```
 
 Callouts are static, visible content—not screen-reader alerts. Do not hide core precautions in a details disclosure.
 
 ## Checklist
 
-The optional `title` parameter labels the panel. Write one ordinary Markdown bullet list in the body; do not invoke the shortcode once per item.
+The optional `title` parameter labels the panel. Write one ordinary Markdown bullet list in the body; do not invoke the component once per item.
 
 ```markdown
-{% checklist(title="Equipment") %}
+{% <checklist title="Equipment"> %}
 - Procedure-specific equipment
 - Monitoring equipment with **important detail**
 - Supporting documentation
   - Nested items remain normal subordinate bullets
-{% end %}
+{% </checklist> %}
 ```
 
 The square markers are decorative. The list remains semantic and is not interactive completion tracking.
@@ -153,23 +158,25 @@ The square markers are decorative. The list remains semantic and is not interact
 The `title` parameter is required. The body supports ordinary Markdown and uses native `details`/`summary` without JavaScript.
 
 ```markdown
-{% details(title="Why this approach?") %}
+{% <details title="Why this approach?"> %}
 Optional background explanation can include **emphasis**, links and lists.
 
 - First supporting point
 - Second supporting point
-{% end %}
+{% </details> %}
 ```
 
 Use details only for optional background or evidence. Disclosed content is forced open in print.
 
 ## Draft and review workflow
 
-Preview drafts with `zola serve --drafts`. Run both public and draft checks before publishing:
+Preview drafts with `zola serve --drafts`. Run both public and draft checks and builds before publishing; `check` validates content and links, while `build` also renders page templates:
 
 ```sh
 zola check --skip-external-links
 zola check --drafts --skip-external-links
+zola build
+zola build --drafts
 ```
 
 Before changing `draft` to `false`, replace every labelled placeholder, confirm references and local-policy links, obtain the required review, and add `extra.reviewed` only if that review actually happened.

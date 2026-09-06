@@ -25,63 +25,63 @@ This paragraph exercises **strong emphasis**, *italics*, [an ordinary link](http
 
 ## Callouts
 
-{% callout() %}
+{% <callout> %}
 A note with **bold text**, an [example link](https://example.com/) and ordinary Markdown.
 
 This second paragraph verifies multi-paragraph rendering.
-{% end %}
+{% </callout> %}
 
-{% callout(kind="tip") %}
+{% <callout kind="tip"> %}
 A concise practical tip using its default title.
-{% end %}
+{% </callout> %}
 
-{% callout(kind="warning", title="Custom warning title") %}
+{% <callout kind="warning" title="Custom warning title"> %}
 A visible warning with a custom title.
-{% end %}
+{% </callout> %}
 
-{% callout(kind="danger") %}
+{% <callout kind="danger"> %}
 A high-severity hazard using the default Danger title.
-{% end %}
+{% </callout> %}
 
-{% callout(kind="local") %}
+{% <callout kind="local"> %}
 A neutral local-practice note.
-{% end %}
+{% </callout> %}
 
-{% callout(kind="not-a-kind") %}
+{% <callout kind="not-a-kind"> %}
 An unknown kind falls back safely to the note appearance and title.
-{% end %}
+{% </callout> %}
 
 ## Checklist
 
-{% checklist(title="Static reference checklist") %}
+{% <checklist title="Static reference checklist"> %}
 - First item with **emphasis**
 - Second item with an [example link](https://example.com/) and enough text to wrap onto another line at narrow widths
 - Third item
   - Nested item remains an ordinary subordinate list
-{% end %}
+{% </checklist> %}
 
-{% checklist() %}
+{% <checklist> %}
 - An untitled checklist confirms that the title is optional.
-{% end %}
+{% </checklist> %}
 
 ## Figure
 
-{{ figure(src="equipment-placeholder.svg", alt="Abstract arrangement of labelled rectangular shapes", caption="A non-clinical page-bundle placeholder.", credit="Project placeholder") }}
+{{ <figure page={page} src="equipment-placeholder.svg" alt="Abstract arrangement of labelled rectangular shapes" caption="A non-clinical page-bundle placeholder." credit="Project placeholder" /> }}
 
 ## Details
 
-{% details(title="Optional supporting explanation") %}
+{% <details title="Optional supporting explanation"> %}
 The disclosure body supports **Markdown** and [links](https://example.com/).
 
 It also supports multiple paragraphs and an ordinary list:
 
 - First supporting point
 - Second supporting point
-{% end %}
+{% </details> %}
 
 ## Figure pair
 
-{{ figure_pair(left_src="equipment-placeholder.svg", left_alt="First abstract arrangement of labelled rectangular shapes", left_caption="First non-clinical placeholder.", right_src="equipment-placeholder.svg", right_alt="Second abstract arrangement of labelled rectangular shapes", right_caption="Second non-clinical placeholder.", right_credit="Project placeholder") }}
+{{ <figure_pair page={page} left_src="equipment-placeholder.svg" left_alt="First abstract arrangement of labelled rectangular shapes" left_caption="First non-clinical placeholder." right_src="equipment-placeholder.svg" right_alt="Second abstract arrangement of labelled rectangular shapes" right_caption="Second non-clinical placeholder." right_credit="Project placeholder" /> }}
 
 ## Table
 

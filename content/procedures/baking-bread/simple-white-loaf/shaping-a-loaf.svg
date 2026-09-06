@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
+  <title id="title">Shaping a tin loaf</title>
+  <desc id="desc">Three stages: flatten the dough into a rectangle, roll it into a log, then place it seam-side down in an oiled loaf tin.</desc>
+  <rect width="960" height="480" fill="#f4f6f8"/>
+  <g font-family="sans-serif" fill="#10233f">
+    <text x="40" y="52" font-size="25" font-weight="700">From dough to tin</text>
+    <text x="40" y="82" font-size="16" fill="#526174">A simple shaping sequence</text>
+  </g>
+  <g stroke="#dce2e8" stroke-width="2">
+    <path d="M320 120v290M640 120v290"/>
+  </g>
+  <g fill="#007a7a" font-family="sans-serif" font-size="18" font-weight="700">
+    <text x="40" y="139">01</text>
+    <text x="360" y="139">02</text>
+    <text x="680" y="139">03</text>
+  </g>
+  <rect x="60" y="184" width="210" height="122" rx="24" fill="#f0d7a6" stroke="#a77d42" stroke-width="3"/>
+  <path d="M84 213c45-9 91-9 162 0M84 273c45 9 91 9 162 0" fill="none" stroke="#d1ab70" stroke-width="3"/>
+  <rect x="378" y="211" width="214" height="76" rx="38" fill="#f0d7a6" stroke="#a77d42" stroke-width="3"/>
+  <path d="M415 263h143" stroke="#a77d42" stroke-width="3" stroke-dasharray="7 6"/>
+  <path d="M440 184c24-23 62-23 86 0m-2-17 4 20-20-2" fill="none" stroke="#007a7a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M687 210h232l-20 102H707z" fill="#dce2e8" stroke="#526174" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="701" y="194" width="205" height="84" rx="26" fill="#193757" stroke="#526174" stroke-width="3"/>
+  <rect x="715" y="205" width="177" height="59" rx="29" fill="#f0d7a6" stroke="#a77d42" stroke-width="3"/>
+  <g font-family="sans-serif" fill="#10233f" font-size="21" font-weight="700">
+    <text x="40" y="360">Flatten gently</text>
+    <text x="360" y="360">Roll into a log</text>
+    <text x="680" y="360">Place in the tin</text>
+  </g>
+  <g font-family="sans-serif" fill="#526174" font-size="17">
+    <text x="40" y="391">Make a rectangle about</text>
+    <text x="40" y="415">as wide as the tin is long.</text>
+    <text x="360" y="391">Roll up, then pinch</text>
+    <text x="360" y="415">the seam closed.</text>
+    <text x="680" y="391">Set the dough seam-side</text>
+    <text x="680" y="415">down in the oiled tin.</text>
+  </g>
+</svg>

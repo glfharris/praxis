@@ -4,7 +4,7 @@ A small Zola site for practical procedure guides and supporting explanations aim
 
 ## Requirements
 
-This project was built and tested with **Zola 0.22.1**. That version uses Zola shortcodes; Zola 0.23 and later replace them with Tera components and are not source-compatible with this authoring API.
+This project uses **Zola 0.23.4** and Tera 2 components. Zola 0.22 and its shortcode syntax are no longer supported.
 
 Install Zola using the [official installation instructions](https://www.getzola.org/documentation/getting-started/installation/) and confirm the version:
 
@@ -12,7 +12,7 @@ Install Zola using the [official installation instructions](https://www.getzola.
 zola --version
 ```
 
-For Cloudflare Pages, set `ZOLA_VERSION` to `0.22.1` in both production and preview build environment variables, with build command `zola build` and output directory `public`. This keeps builds on the supported version when Cloudflare changes its default. Use the same Zola version for local checks.
+For Cloudflare Pages, set `ZOLA_VERSION` to `0.23.4` in both production and preview build environment variables, with build command `zola build` and output directory `public`. This keeps builds on the supported version when Cloudflare changes its default. Use the same Zola version for local checks.
 
 ## Preview, build and check
 
@@ -47,6 +47,14 @@ zola check --skip-external-links
 zola check --drafts --skip-external-links
 ```
 
+Run the build-level regression checks with Python 3 (standard library only):
+
+```sh
+python3 tests/check_site.py
+```
+
+These build temporary copies of the site and check draft exclusion, component escaping and Markdown, nested contents links, default guide classification, and missing-image validation.
+
 Zola writes generated files to `public/`. Do not edit that directory.
 
 ## Configuration
@@ -55,14 +63,22 @@ Site-wide settings live in `zola.toml`. Change `title` to update the header word
 
 No Node tooling, CSS framework, JavaScript application, CMS or external font service is required. The site uses Tera templates, one plain CSS file and system fonts.
 
+The header mark and SVG favicon share `static/favicon.svg`. PNG and ICO fallbacks are committed, so normal site builds need no image tooling. After editing the SVG, regenerate them with librsvg and ImageMagick:
+
+```sh
+rsvg-convert -w 32 -h 32 static/favicon.svg -o static/favicon-32.png
+rsvg-convert -w 180 -h 180 static/favicon.svg -o static/apple-touch-icon.png
+magick static/favicon-32.png -define icon:auto-resize=32,16 static/favicon.ico
+```
+
 ## File layout
 
 ```text
 content/                 Published content tree and page-bundle assets
   procedures/            Procedure families, guides and explainers
   showcase/              Draft component and typography test page
-templates/               Page shells, shared partials and TOC macro
-  shortcodes/            Zola 0.22 authoring components
+templates/               Page shells and shared partials
+  components/            Tera 2 authoring components and recursive TOC
 static/site.css          Design tokens and responsive/print styles
 docs/AUTHORING.md        Authoring contract and copyable recipes
 examples/                Starter guide and explainer outside the site

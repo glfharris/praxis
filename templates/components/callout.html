@@ -1,4 +1,5 @@
-{% set requested_kind = kind | default(value="note") %}
+{% component callout(kind: string = "note", title: string = "") %}
+{% set requested_kind = kind %}
 {% if requested_kind == "tip" or requested_kind == "warning" or requested_kind == "danger" or requested_kind == "local" %}
   {% set callout_kind = requested_kind %}
 {% else %}
@@ -20,11 +21,9 @@
   {% set default_title = "Note" %}
   {% set icon = "i" %}
 {% endif %}
-{% set callout_title = title | default(value=default_title) %}
-<aside class="callout callout--{{ callout_kind }}" aria-labelledby="callout-{{ callout_kind }}-{{ nth }}-title">
-  <p class="callout__title" id="callout-{{ callout_kind }}-{{ nth }}-title">
-    <span class="callout__icon" aria-hidden="true">{{ icon }}</span>
-    {{ callout_title }}
-  </p>
-  <div class="callout__body">{{ body | markdown | safe }}</div>
+{% set callout_title = title or default_title %}
+<aside class="callout callout--{{ callout_kind }}" aria-label="{{ callout_title | escape_html | safe }}">
+<p class="callout__title"><span class="callout__icon" aria-hidden="true">{{ icon }}</span> {{ callout_title | escape_html | safe }}</p>
+<div class="callout__body">{{ body | markdown | safe }}</div>
 </aside>
+{% endcomponent callout %}

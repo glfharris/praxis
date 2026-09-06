@@ -25,9 +25,9 @@ Explain the decision in plain language. Keep the question focused and avoid repe
 | Intended use | How do purpose and expected duration affect the choice? |
 | Local capability | Which staffing, equipment or escalation constraints matter? |
 
-{% details(title="Evidence notes") %}
+{% <details title="Evidence notes"> %}
 Summarise the quality and applicability of the evidence here. Keep detailed evidence optional, but do not hide uncertainty that changes the practical recommendation.
-{% end %}
+{% </details> %}
 
 ## References
 

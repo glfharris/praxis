@@ -41,10 +41,14 @@
 {% if pending_count > 0 %}
 <section class="upcoming" aria-labelledby="upcoming-title">
   <h2 id="upcoming-title">In preparation</h2>
-  <ul>
+  <ul class="listing-grid">
     {% for subsection_path in directory.subsections %}
       {% set family = get_section(path=subsection_path) %}
-      {% if family.pages | length == 0 %}<li>{{ family.title }}</li>{% endif %}
+      {% if family.pages | length == 0 %}
+      <li class="procedure-entry">
+        {% include "partials/procedure-card.html" %}
+      </li>
+      {% endif %}
     {% endfor %}
   </ul>
 </section>

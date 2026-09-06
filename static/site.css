@@ -39,7 +39,7 @@
 html {
   color-scheme: light;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + var(--space-3));
+  scroll-padding-top: var(--space-4);
 }
 
 body {
@@ -129,11 +129,20 @@ main:focus {
 }
 
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: #fff;
   font-size: 1.25rem;
   font-weight: 750;
   letter-spacing: -0.015em;
   text-decoration: none;
+}
+
+.wordmark__icon {
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
 }
 
 .wordmark:hover {
@@ -228,6 +237,7 @@ h4 {
   font-weight: 730;
   letter-spacing: -0.018em;
   line-height: 1.22;
+  text-wrap: balance;
 }
 
 h1 {
@@ -248,12 +258,6 @@ h3 {
 h4 {
   margin: 1.5rem 0 0.5rem;
   font-size: 1.08rem;
-}
-
-h2[id],
-h3[id],
-h4[id] {
-  scroll-margin-top: calc(var(--header-height) + var(--space-3));
 }
 
 .lede {
@@ -449,14 +453,6 @@ h4[id] {
   font-size: 1rem;
 }
 
-.upcoming ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-5);
-  margin: 0;
-  padding-left: 1.2rem;
-}
-
 .procedure-entry {
   min-width: 0;
   border: 1px solid var(--border);
@@ -485,8 +481,16 @@ h4[id] {
 }
 
 .draft-label {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1.4;
+  vertical-align: baseline;
 }
 
 .listing-grid {
@@ -543,6 +547,7 @@ h4[id] {
 }
 
 .listing-card--pending {
+  height: 100%;
   cursor: default;
   background: var(--surface);
 }
@@ -685,6 +690,7 @@ h4[id] {
 .metadata div {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.35rem;
 }
 
@@ -894,6 +900,30 @@ h4[id] {
 
 .article-figure {
   max-width: 100%;
+  margin-inline: 0;
+}
+
+.footnote-definition {
+  position: relative;
+  margin-block: var(--space-3);
+  padding-left: 2rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.footnote-definition-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5rem;
+  font-size: inherit;
+  font-weight: 650;
+  text-align: right;
+}
+
+.footnote-definition > :last-child {
+  margin-bottom: 0;
 }
 
 .article-figure img {
@@ -988,6 +1018,11 @@ h4[id] {
 
   .wordmark {
     font-size: 1.05rem;
+  }
+
+  .wordmark__icon {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   .primary-nav a {

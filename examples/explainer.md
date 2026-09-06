@@ -28,9 +28,9 @@ Explain why the answer follows and link back to the applicable practical guide.
 | First consideration | Explain how it changes the balance. |
 | Second consideration | Explain how it changes the balance. |
 
-{% details(title="Evidence notes") %}
+{% <details title="Evidence notes"> %}
 Summarise the quality and applicability of the evidence.
-{% end %}
+{% </details> %}
 
 ## References
 

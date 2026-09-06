@@ -23,19 +23,19 @@ Add reviewed indications, contraindications, alternatives and patient-specific c
 
 ## Equipment
 
-{% checklist(title="Equipment") %}
+{% <checklist title="Equipment"> %}
 - Procedure-specific equipment
 - Monitoring equipment
 - Supporting documentation
-{% end %}
+{% </checklist> %}
 
 ## Preparation
 
 Describe preparation in ordinary Markdown.
 
-{% callout(kind="warning", title="Before proceeding") %}
+{% <callout kind="warning" title="Before proceeding"> %}
 Add the most important reviewed precaution here.
-{% end %}
+{% </callout> %}
 
 ## Technique
 
@@ -43,13 +43,13 @@ Add the most important reviewed precaution here.
 2. Second reviewed step.
 3. Third reviewed step.
 
-{% callout(kind="tip") %}
+{% <callout kind="tip"> %}
 Add a concise practical detail.
-{% end %}
+{% </callout> %}
 
-{% details(title="Why this approach?") %}
+{% <details title="Why this approach?"> %}
 Add optional supporting reasoning and evidence.
-{% end %}
+{% </details> %}
 
 ## Immediate checks
 

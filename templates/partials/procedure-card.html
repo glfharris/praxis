@@ -1,4 +1,4 @@
-{% set explainer_pages = family.pages | filter(attribute="extra.kind", value="explainer") %}
+{% set explainer_pages = [item for item in family.pages if item.extra.kind == "explainer"] %}
 {% set explainer_count = explainer_pages | length %}
 {% set article_count = family.pages | length %}
 {% set guide_count = article_count - explainer_count %}
