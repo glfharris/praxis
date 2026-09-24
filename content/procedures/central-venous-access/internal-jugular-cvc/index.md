@@ -5,11 +5,6 @@ template = "article.html"
 
 [extra]
 kind = "guide"
-related = [
-  "procedures/central-venous-access/choosing-a-site/index.md",
-  "procedures/central-venous-access/coagulation-thresholds/index.md",
-  "procedures/central-venous-access/chest-radiograph-confirmation/index.md",
-]
 +++
 
 ## Indications
@@ -23,7 +18,7 @@ Insertion of central venous access is not without risk, therefore there should a
 
 There are few absolute contraindications for central venous access, aside from refusal by a capacitous patient, and the decision to place a central venous catheter should be taken with heed to the clinical context. Relative contraindications include:
 
-- Severely abnormal clotting — see [coagulation thresholds](@/procedures/central-venous-access/coagulation-thresholds/index.md)
+- Severely abnormal clotting
 - Overlying infection
 - Ipsilateral thrombus
 - Uncooperative patient
@@ -146,7 +141,7 @@ Confirm correct placement and rule out immediate complications before the line i
 - Ultrasound confirmation at multiple steps
 - Ensure the guidewire moves freely during dilation
 - Consider VBG
-- CXR — exclude pneumothorax and malposition; see [chest radiograph confirmation](@/procedures/central-venous-access/chest-radiograph-confirmation/index.md)
+- CXR — exclude pneumothorax and malposition
 - Transduce — confirm CVP waveform
 
 ## Complications
