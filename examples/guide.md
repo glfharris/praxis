@@ -19,7 +19,7 @@ State what the guide covers, who it is for and important limits.
 
 ## Indications and considerations
 
-Add reviewed indications, contraindications, alternatives and patient-specific considerations.
+Add reviewed indications, contraindications, alternatives and patient-specific considerations.[^primary-source]
 
 ## Equipment
 
@@ -39,13 +39,23 @@ Add the most important reviewed precaution here.
 
 ## Technique
 
-1. First reviewed step.
-2. Second reviewed step.
-3. Third reviewed step.
+{% <step number={1} title="Perform the main stage"> %}
+Introduce this stage of the procedure and explain what its illustration shows.
 
-{% <callout kind="tip"> %}
+{{ <figure page={page} src="guide-figure.svg" alt="Three labelled abstract shapes connected in sequence." caption="Non-clinical placeholder: replace with a reviewed procedure illustration and caption." /> }}
+
+1. First reviewed action within this stage.
+2. Second reviewed action.
+3. Confirm the expected result before continuing.[^primary-source]
+
+{% <callout kind="tip" title="Practical detail"> %}
 Add a concise practical detail.
 {% </callout> %}
+{% </step> %}
+
+{% <step number={2} title="Complete the procedure"> %}
+Describe the next stage, including the checks needed before finishing.
+{% </step> %}
 
 {% <details title="Why this approach?"> %}
 Add optional supporting reasoning and evidence.
@@ -67,4 +77,4 @@ Add documentation, observation and follow-up requirements.
 
 ## References
 
-1. Add current primary guidance and evidence.
+[^primary-source]: Add current primary guidance and evidence, with a linked source title.

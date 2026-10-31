@@ -1,6 +1,11 @@
 {% component checklist(title: string = "") %}
 <aside class="checklist" aria-label="{{ (title or 'Checklist') | escape_html | safe }}">
 {% if title %}<p class="checklist__title">{{ title | escape_html | safe }}</p>{% endif %}
-<div class="checklist__body">{{ body | markdown | safe }}</div>
+{# Blank lines let the page render body Markdown with shared footnote definitions. #}
+<div class="checklist__body">
+
+{{ body | safe }}
+
+</div>
 </aside>
 {% endcomponent checklist %}

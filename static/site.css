@@ -957,27 +957,70 @@ h4 {
   margin-inline: 0;
 }
 
-.footnote-definition {
-  position: relative;
-  margin-block: var(--space-3);
-  padding-left: 2rem;
+.footnote-reference {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+.footnote-reference + .footnote-reference {
+  margin-inline-start: 0.15em;
+}
+
+.footnote-reference a {
+  padding-inline: 0.1em;
+  font-weight: 650;
+}
+
+.footnotes {
   color: var(--muted);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.prose .footnotes-list > li {
+  margin-block: var(--space-3);
+}
+
+.footnotes li > p:has(+ .footnote-backlinks) {
+  margin-bottom: 0;
+}
+
+.footnotes li > :last-child {
+  margin-bottom: 0;
+}
+
+.prose .footnote-backlinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.1rem 0.25rem;
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
   line-height: 1.5;
 }
 
-.footnote-definition-label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1.5rem;
-  font-size: inherit;
-  font-weight: 650;
-  text-align: right;
+.footnote-backlinks__label {
+  margin-right: 0.1rem;
 }
 
-.footnote-definition > :last-child {
-  margin-bottom: 0;
+.footnote-backlinks a {
+  display: inline-grid;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  padding-inline: 0.15rem;
+  place-items: center;
+  color: var(--muted);
+}
+
+.footnote-backlinks a:hover {
+  color: var(--teal-dark);
+}
+
+.footnotes li:target,
+.footnote-reference:target {
+  background: var(--note-surface);
+  outline: 2px solid var(--border);
+  outline-offset: 0.2rem;
 }
 
 .article-figure img {
@@ -1234,6 +1277,10 @@ h4 {
   .breadcrumbs,
   .desktop-toc,
   .mobile-toc {
+    display: none !important;
+  }
+
+  .footnote-backlinks {
     display: none !important;
   }
 

@@ -2,10 +2,12 @@
 
 from html.parser import HTMLParser
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
 import unittest
+from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,23 +54,63 @@ reviewers = ["Reviewer & colleague"]
 
 ### Child heading
 
+A repeated source.[^primary]
+
 {% <callout kind="unknown" title='A "quote" & <em>literal</em>'> %}
-First **strong** paragraph with a [link](https://example.com/).
+First **strong** paragraph with a [link](https://example.com/).[^primary]
 
 Second paragraph.
 {% </callout> %}
 
 {% <checklist> %}
 - Outer item
-  - Nested item
+  - Nested item[^primary]
 {% </checklist> %}
 
 {% <details title='A "quote" & <em>literal</em>'> %}
-Optional **detail**.
+Optional **detail**.[^primary]
 {% </details> %}
 
+{% <step number={1} title="A step with sources"> %}
+A source inside a step.[^primary]
+
 {{ <figure page={page} src="equipment-placeholder.svg" alt='A "quote" & <em>literal</em>' caption="<em>literal</em>" /> }}
+
+1. First action.
+2. Second action.
+
+{% <callout> %}
+A source cited only inside a nested component.[^secondary]
+{% </callout> %}
+{% </step> %}
+
+{% <step number={2} title="Finish the fixture"> %}
+Check the result.
+{% </step> %}
+
+## References
+
+[^primary]: First [source](https://example.com/source).
+
+    A second paragraph of reference text.
+
+[^secondary]: Second source.
+[^unused]: An uncited definition is omitted.
 ''')
+        starters = cls.site / "content/procedures/authoring-check"
+        starters.mkdir()
+        (starters / "_index.md").write_text('''+++
+title = "Authoring check"
+template = "family.html"
+page_template = "article.html"
+sort_by = "title"
++++
+''')
+        for kind in ("guide", "explainer"):
+            bundle = starters / kind
+            bundle.mkdir()
+            shutil.copy2(ROOT / f"examples/{kind}.md", bundle / "index.md")
+        shutil.copy2(ROOT / "examples/guide-figure.svg", starters / "guide")
         cls.run_zola("build", "--output-dir", "public")
         cls.run_zola("build", "--drafts", "--base-url", "https://example.test/handbook", "--output-dir", "drafts")
 
@@ -84,7 +126,11 @@ Optional **detail**.
         self.assertFalse((self.site / "public/procedures/central-venous-access/migration-check/index.html").exists())
         home = Markup(self.site / "public/index.html")
         cards = [a["href"] for a in home.attrs("a") if "listing-card" in a.get("class", "")]
-        self.assertEqual(cards, ["https://praxis.glfharris.com/procedures/baking-bread/"])
+        self.assertIn("https://praxis.glfharris.com/procedures/central-venous-access/", cards)
+        self.assertNotIn("https://praxis.glfharris.com/procedures/authoring-check/", cards,
+                         "A family containing only draft starters must not appear on the homepage")
+        for kind in ("guide", "explainer"):
+            self.assertFalse((self.site / f"public/procedures/authoring-check/{kind}/index.html").exists())
 
     def test_components_and_recursive_toc(self):
         page = Markup(self.site / "drafts/procedures/central-venous-access/migration-check/index.html")
@@ -109,7 +155,7 @@ Optional **detail**.
         family = Markup(self.site / "drafts/procedures/central-venous-access/index.html")
         text = " ".join("".join(family.text).split())
         self.assertIn("Practical guides · 2", text)
-        self.assertIn("Supporting explanations · 1", text)
+        self.assertIn("Supporting explanations · 3", text)
         home = Markup(self.site / "drafts/index.html")
         links = [a for a in home.attrs("a") if a.get("href", "").endswith("/migration-check/")]
         self.assertEqual(len(links), 1, "A guide without extra.kind gets a direct homepage link")
@@ -121,14 +167,84 @@ Optional **detail**.
         self.assertEqual(len([a for a in page.attrs("aside") if "callout" in a.get("class", "")]), 6)
         self.assertEqual(page.attrs("pre"), [], "Component HTML must not become indented code blocks")
 
+    def test_footnotes_share_numbering_and_return_links_across_components(self):
+        page = Markup(self.site / "drafts/procedures/central-venous-access/migration-check/index.html")
+        self.assertNotIn("[^", "".join(page.text), "Footnotes inside components must resolve")
+        ids = [attrs["id"] for _, attrs in page.tags if "id" in attrs]
+        self.assertEqual(len(ids), len(set(ids)), "Repeated citations need unique return targets")
+        definitions = [attrs["id"] for attrs in page.attrs("li") if attrs.get("id", "").startswith("fn-")]
+        self.assertEqual(definitions, ["fn-primary", "fn-secondary"])
+        citations = [attrs for attrs in page.attrs("sup") if attrs.get("class") == "footnote-reference"]
+        self.assertEqual(len(citations), 6)
+        links = [attrs["href"] for attrs in page.attrs("a") if "href" in attrs]
+        forward = [href for href in links if urlsplit(href).fragment.startswith("fn-")]
+        backward = [href for href in links if urlsplit(href).fragment.startswith("fr-")]
+        self.assertEqual(len(forward), 6)
+        self.assertEqual([urlsplit(href).fragment for href in forward].count("fn-primary"), 5)
+        self.assertEqual({urlsplit(href).fragment for href in backward}, {attrs["id"] for attrs in citations})
+        self.assertEqual(len(backward), 6)
+        self.assertTrue(all(href.startswith("https://example.test/handbook/") for href in forward + backward))
+
+    def test_site_selection_citations_all_resolve(self):
+        source = ROOT / "content/procedures/central-venous-access/choosing-a-site/index.md"
+        article = source.read_text()
+        expected = re.findall(r"\[\^([^\]]+)\](?!:)", article)
+        definitions = re.findall(r"^\[\^([^\]]+)\]:", article, re.MULTILINE)
+        page = Markup(self.site / "drafts/procedures/central-venous-access/choosing-a-site/index.html")
+        self.assertNotIn("[^", "".join(page.text))
+        self.assertEqual(len([a for a in page.attrs("sup") if a.get("class") == "footnote-reference"]), len(expected))
+        entries = [a["id"] for a in page.attrs("li") if a.get("id", "").startswith("fn-")]
+        self.assertEqual(entries, [f"fn-{label}" for label in dict.fromkeys(expected)])
+        self.assertEqual(set(definitions), set(expected))
+
+    def test_reference_return_links_are_grouped_without_losing_destinations(self):
+        for relative_path in (
+            "drafts/procedures/central-venous-access/migration-check/index.html",
+            "public/procedures/central-venous-access/internal-jugular-cvc/index.html",
+        ):
+            with self.subTest(page=relative_path):
+                path = self.site / relative_path
+                page = Markup(path)
+                html = path.read_text()
+                references = [a for a in page.attrs("li") if a.get("id", "").startswith("fn-")]
+                rows = re.findall(r'<p class="footnote-backlinks">(.*?)</p>', html, re.DOTALL)
+                self.assertEqual(len(rows), len(references))
+                self.assertTrue(all('>Cited at:</span>' in row for row in rows))
+                citations = {a["id"] for a in page.attrs("sup") if a.get("class") == "footnote-reference"}
+                backlinks = [a for a in page.attrs("a") if urlsplit(a.get("href", "")).fragment.startswith("fr-")]
+                self.assertEqual({urlsplit(a["href"]).fragment for a in backlinks}, citations)
+                for link in backlinks:
+                    occurrence = urlsplit(link["href"]).fragment.rsplit("-", 1)[1]
+                    self.assertEqual(link.get("aria-label"), f"Return to citation occurrence {occurrence}")
+                    self.assertTrue(any(f'aria-label="Return to citation occurrence {occurrence}">{occurrence}</a>' in row for row in rows))
+                self.assertNotIn("↩", "".join(page.text))
+        fixture = Markup(self.site / "drafts/procedures/central-venous-access/migration-check/index.html")
+        self.assertIn("A second paragraph of reference text.", "".join(fixture.text))
+        self.assertTrue(any(a.get("href") == "https://example.com/source" for a in fixture.attrs("a")))
+
     def test_steps_are_headings_with_contents_links(self):
-        page = Markup(self.site / "public/procedures/baking-bread/simple-white-loaf/index.html")
-        self.assertEqual([a["id"] for a in page.attrs("h3")], [f"step-{n}" for n in range(1, 6)])
-        for n in range(1, 6):
+        path = self.site / "drafts/procedures/central-venous-access/migration-check/index.html"
+        page = Markup(path)
+        step_ids = [a["id"] for a in page.attrs("h3") if a.get("id", "").startswith("step-")]
+        self.assertEqual(step_ids, ["step-1", "step-2"])
+        for n in (1, 2):
             self.assertEqual(len([a for a in page.attrs("a") if a.get("href", "").endswith(f"#step-{n}")]), 2)
         self.assertEqual(page.attrs("pre"), [], "Step bodies must render as Markdown, not code")
-        self.assertTrue(any(a.get("src", "").endswith("shaping-a-loaf.svg") for a in page.attrs("img")))
+        self.assertTrue(any(a.get("src", "").endswith("equipment-placeholder.svg") for a in page.attrs("img")))
+        first_step = path.read_text().split('<h3 id="step-1">', 1)[1].split('<h3 id="step-2">', 1)[0]
+        for markup in ('<figure', '<ol>', '<aside class="callout callout--note"'):
+            self.assertIn(markup, first_step, "Steps must support figures, lists and nested callouts together")
         self.assertTrue(any("article.js" in a.get("src", "") and "defer" in a for a in page.attrs("script")))
+
+    def test_authoring_starters_render_with_their_assets(self):
+        guide = Markup(self.site / "drafts/procedures/authoring-check/guide/index.html")
+        self.assertEqual([a["id"] for a in guide.attrs("h3")], ["step-1", "step-2"])
+        figure = next(a for a in guide.attrs("img") if a.get("src") == "guide-figure.svg")
+        self.assertEqual((figure["width"], figure["height"]), ("960", "480"))
+        self.assertEqual(guide.attrs("pre"), [])
+        self.assertEqual(len([a for a in guide.attrs("li") if a.get("id", "").startswith("fn-")]), 1)
+        explainer = Markup(self.site / "drafts/procedures/authoring-check/explainer/index.html")
+        self.assertEqual(len([a for a in explainer.attrs("li") if a.get("id", "").startswith("fn-")]), 1)
 
     def test_missing_image_fails_build(self):
         original = self.fixture.read_text()

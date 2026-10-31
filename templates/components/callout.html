@@ -24,6 +24,11 @@
 {% set callout_title = title or default_title %}
 <aside class="callout callout--{{ callout_kind }}" aria-label="{{ callout_title | escape_html | safe }}">
 <p class="callout__title"><span class="callout__icon" aria-hidden="true">{{ icon }}</span> {{ callout_title | escape_html | safe }}</p>
-<div class="callout__body">{{ body | markdown | safe }}</div>
+{# Blank lines let the page render body Markdown with shared footnote definitions. #}
+<div class="callout__body">
+
+{{ body | safe }}
+
+</div>
 </aside>
 {% endcomponent callout %}

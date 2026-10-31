@@ -42,7 +42,7 @@
     {% endif %}
 
     <article class="prose article-body">
-      {{ page.content | safe }}
+      {{ <article_content content={page.content} /> }}
 
       {% if page.extra.related %}
       <aside class="related" aria-labelledby="related-title">

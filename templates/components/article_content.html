@@ -1,0 +1,19 @@
+{% component article_content(content: string) %}
+{# Format Zola's generated bottom-footnote backlinks at build time. Keep the
+   native hrefs and citation IDs so navigation also works without JavaScript.
+   These patterns match the generated return anchors, not ordinary source links. #}
+{% set parts = content | split(pat='<section class="footnotes">') %}
+{% if parts | length == 2 %}
+{{ parts[0] | safe }}<section class="footnotes">
+{% set formatted = parts[1] | regex_replace(
+  pattern='( <a href="[^"]*#fr-[^"]+">↩[0-9]*</a>)+</p>',
+  rep='</p><p class="footnote-backlinks"><span class="footnote-backlinks__label">Cited at:</span>$0'
+) %}
+{{ formatted | regex_replace(
+  pattern='<a href="([^"]*#fr-[^"]+-([0-9]+))">↩[0-9]*</a>',
+  rep='<a href="$1" aria-label="Return to citation occurrence $2">$2</a>'
+) | safe }}
+{% else %}
+{{ content | safe }}
+{% endif %}
+{% endcomponent article_content %}

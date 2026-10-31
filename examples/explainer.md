@@ -15,7 +15,7 @@ kind = "explainer"
 
 ## Short answer
 
-Give the concise reviewed answer first, including important uncertainty.
+Give the concise reviewed answer first, including important uncertainty.[^primary-source]
 
 ## Reasoning
 
@@ -34,4 +34,4 @@ Summarise the quality and applicability of the evidence.
 
 ## References
 
-1. Add current primary guidance and relevant evidence.
+[^primary-source]: Add current primary guidance and relevant evidence, with a linked source title.

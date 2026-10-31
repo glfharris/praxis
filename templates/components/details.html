@@ -1,6 +1,11 @@
 {% component details(title: string) %}
 <details class="author-details">
 <summary>{{ title | escape_html | safe }}</summary>
-<div class="author-details__body">{{ body | markdown | safe }}</div>
+{# Blank lines let the page render body Markdown with shared footnote definitions. #}
+<div class="author-details__body">
+
+{{ body | safe }}
+
+</div>
 </details>
 {% endcomponent details %}

@@ -1,6 +1,6 @@
 +++
-title = "Chest radiograph confirmation of central venous catheters"
-description = "What a post-insertion chest radiograph should confirm, when it is needed, and its limitations."
+title = "Chest X-ray confirmation of central venous catheters"
+description = "What a post-insertion chest X-ray should confirm, when it is needed, and its limitations."
 template = "article.html"
 draft = true
 
@@ -11,7 +11,7 @@ related = ["procedures/central-venous-access/internal-jugular-cvc/index.md"]
 
 ## Short answer
 
-Placeholder — replace with a concise reviewed answer on what the post-insertion chest radiograph is for (tip position and exclusion of pneumothorax and haemothorax), when it can reasonably be omitted, and what target position to accept before use.
+Placeholder — replace with a concise reviewed answer on what the post-insertion chest X-ray (CXR) is for (tip position and exclusion of pneumothorax and haemothorax), when it can reasonably be omitted, and what target position to accept before use.
 
 ## Reasoning
 

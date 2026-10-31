@@ -22,7 +22,7 @@ Preview published content:
 zola serve
 ```
 
-Preview the unfinished demonstration guide, explainer and component showcase:
+Preview draft articles and the component showcase:
 
 ```sh
 zola serve --drafts

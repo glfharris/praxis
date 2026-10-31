@@ -13,6 +13,7 @@ minify_html = false
 
 [markdown]
 smart_punctuation = true
+bottom_footnotes = true
 insert_anchor_links = "none"
 external_links_class = "external"
 

@@ -33,6 +33,8 @@ content/procedures/family-slug/article-slug/
   article-image.svg
 ```
 
+The guide starter demonstrates a numbered step containing a figure, an ordinary numbered list and a nested callout. Copy `examples/guide-figure.svg` alongside its `index.md` so the starter renders immediately; replace the placeholder illustration and caption, or remove the figure, before publication.
+
 Set `draft = true` until the clinical and editorial review is complete. The family page discovers published pages automatically and groups guides before explainers.
 
 Suggested guide headings are Overview and scope, Indications and considerations, Equipment, Preparation, Technique, Immediate checks, Aftercare, Troubleshooting and References. Keep the practical sequence together on one page. Explainers should begin with a short answer and then cover reasoning, trade-offs and evidence.
@@ -81,7 +83,25 @@ Use Zola internal links so moves and broken targets are validated:
 Read [the site-selection explainer](@/procedures/central-venous-access/choosing-a-site/index.md).
 ```
 
-Use descriptive link text. Keep reference lists as ordinary Markdown numbered lists. Link to primary guidance or evidence where possible and follow the project’s chosen reference style consistently.
+Use descriptive link text. Cite sources with native Markdown footnotes using descriptive identifiers, such as `[^aoa2025]`. Reuse the identifier whenever you cite the same source; Zola numbers references in order of first citation, independently of the order of their definitions.
+
+Put the definitions beneath a final `## References` heading. Link reference titles to primary guidance or evidence where possible:
+
+```markdown
+The statement being supported.[^source-name]
+
+Another statement citing the same source.[^source-name]
+Multiple sources can support one statement.[^source-name][^another-source]
+
+## References
+
+[^source-name]: Author. [Source title](https://example.com/source). Publication details.
+[^another-source]: Author. [Another source](https://example.com/another). Publication details.
+```
+
+The site enables `markdown.bottom_footnotes`, so citations link to the numbered reference list, and each reference has return links to its citation occurrences. Do not maintain citation numbers or reference numbering manually. Footnotes also work inside callouts, checklists, steps and details; define their sources once at the end of the article. Keep definitions out of component bodies so the reference list stays at the end of the article. An uncited definition is omitted from the rendered list.
+
+Article templates group return links on a separate **Cited at** line. Its numbers identify successive occurrences of that source, not other reference numbers. All destinations remain available without JavaScript; the return-link line is omitted in print.
 
 ## Images
 
