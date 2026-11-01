@@ -119,6 +119,14 @@ Use the figure component when a caption or credit is needed. `page`, `src` and `
 
 The figure component validates the page-relative asset through Zola and emits its intrinsic dimensions. Its relative URL remains correct on nested routes and when the site is hosted below a URL prefix. Captions and credits are plain text and are escaped automatically. Do not put Markdown in those parameters.
 
+For a credit containing links, use a figure block and put the attribution in its body as inline HTML. It appears beneath the caption inside the same box; omit the plain-text `credit` parameter when using this form.
+
+```markdown
+{% <figure page={page} src="image-name.svg" alt="Describe the information in the image" caption="Explain the finding."> %}
+Case courtesy of Example Author, <a href="https://example.com/">Image library</a>. From the case <a href="https://example.com/cases/123">123</a>
+{% </figure> %}
+```
+
 ### Figure pair
 
 Use `figure_pair` for exactly two related figures. Each image has required `src` and `alt` parameters and optional `caption` and `credit` parameters, prefixed with `left_` or `right_`. The two semantic figures share one visual container, appearing side by side when space permits and stacking within the same card on narrow screens.

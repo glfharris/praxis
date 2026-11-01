@@ -74,7 +74,9 @@ Optional **detail**.[^primary]
 {% <step number={1} title="A step with sources"> %}
 A source inside a step.[^primary]
 
-{{ <figure page={page} src="equipment-placeholder.svg" alt='A "quote" & <em>literal</em>' caption="<em>literal</em>" /> }}
+{% <figure page={page} src="equipment-placeholder.svg" alt='A "quote" & <em>literal</em>' caption="<em>literal</em>"> %}
+Case courtesy of Example Author, <a href="https://example.com/images">Image library</a>. From the case <a href="https://example.com/cases/123">123</a>
+{% </figure> %}
 
 1. First action.
 2. Second action.
@@ -145,6 +147,11 @@ sort_by = "title"
         self.assertEqual(figure["alt"], label)
         self.assertEqual(figure["width"], "960")
         self.assertEqual(figure["height"], "480")
+        markup = (self.site / "drafts/procedures/central-venous-access/migration-check/index.html").read_text()
+        caption = re.search(r"<figcaption>(.*?)</figcaption>", markup, re.S).group(1)
+        self.assertIn('Case courtesy of Example Author,', caption)
+        self.assertIn('<a href="https://example.com/images">Image library</a>', caption)
+        self.assertIn('<a href="https://example.com/cases/123">123</a>', caption)
         ids = [attrs["id"] for _, attrs in page.tags if "id" in attrs]
         self.assertEqual(len(ids), len(set(ids)))
         child_links = [a["href"] for a in page.attrs("a") if a.get("href", "").endswith("#child-heading")]
