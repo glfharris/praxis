@@ -15,7 +15,7 @@ On the post-insertion chest X-ray (CXR), trace the catheter's course, check its 
 
 ## What does the CXR add?
 
-Ultrasound during insertion confirms needle and guidewire placement in the accessible vein. It does not necessarily show where the catheter finally travels or where its tip ends. The CXR adds a view of the intrathoracic course and tip, and can reveal pleural complications.[^aoa2025]
+Ultrasound, along with pressure transduction and blood-gas analysis during insertion confirms needle and guidewire placement in the accessible vein. It does not necessarily show where the catheter finally travels or where its tip ends. The CXR adds a view of the intrathoracic course and tip, and can reveal pleural complications.[^aoa2025]
 
 Keep three questions separate: **is the catheter venous, is its tip appropriately positioned, and has insertion caused a complication?** Transduce the CVC and confirm an appropriate venous waveform and pressure before use, as described in the [internal jugular CVC insertion guide](@/procedures/central-venous-access/internal-jugular-cvc/index.md). CXR review complements that check.[^ficm-cvc]
 
