@@ -121,6 +121,8 @@ Have your assistant keep an eye on the cardiac monitor during guidewire insertio
 {% <step number={7} title="Confirm guidewire position"> %}
 Use ultrasound in transverse and longitudinal views to confirm that the guidewire lies within the internal jugular vein. Follow its course as far centrally as the available view allows, checking that it has not passed through the vein into an adjacent structure. Remove the needle or cannula while retaining control of the wire.[^aoa2025]
 
+Follow local guidelines on confirming guidewire position, as well as ultrasound confirmation, blood gases and pressure transduction are required in some centres.
+
 {% <callout kind="danger" title="Confirm before dilation"> %}
 Do not dilate unless venous placement of the guidewire is confirmed. If the findings are uncertain, stop and obtain experienced help or additional confirmation. Free wire movement or blood return alone is insufficient.[^aoa2025]
 {% </callout> %}
