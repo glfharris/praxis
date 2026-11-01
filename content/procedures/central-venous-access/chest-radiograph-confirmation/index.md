@@ -2,7 +2,7 @@
 title = "Confirming central line position on a chest X-ray"
 description = "Assessing catheter course, tip position and insertion complications before using a central line."
 template = "article.html"
-draft = true
+draft = false
 
 [extra]
 kind = "explainer"
@@ -12,10 +12,6 @@ related = ["procedures/central-venous-access/internal-jugular-cvc/index.md"]
 ## Short answer
 
 On the post-insertion chest X-ray (CXR), trace the catheter's course, check its tip position and alignment, and look for pneumothorax or haemothorax. For adult upper-body central venous catheters (CVCs), suitable tip regions include the lower superior vena cava, cavo-atrial junction or high right atrium, depending on the device and purpose. A satisfactory-looking CXR does not, by itself, prove that a catheter is venous.[^aoa2025][^aoa2016]
-
-{% <callout kind="note" title="Draft for review"> %}
-This first draft awaits clinical and editorial review. It focuses on adult short-term internal jugular and subclavian CVCs. Dialysis catheters, pacing wires and long-term devices require their own positioning and confirmation plans.
-{% </callout> %}
 
 ## What does the CXR add?
 
